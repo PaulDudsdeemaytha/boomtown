@@ -8,30 +8,17 @@ import muiTheme from "./config/theme";
 
 import Layout from "./components/Layout";
 import Login from "./containers/Login";
-
+//todo fix route
+import Routes from "./routes";
 //importing items
 import Items from "./containers/Items";
-//importing router
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect
-} from "react-router-dom";
+//importing itemcard component
+import ItemCard from "./components/ItemCard";
 
 const Boomtown = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <Layout>
-      {/* Router */}
-      <Router>
-        <Switch>
-          <Route path="/" component={Items} />
-          <Route exact path="/Login" component={Login} />
-          {/* <Route path="/*" component={Page404}/> */}
-        </Switch>
-      </Router>
-      {/* End of Router */}
+      <Routes />
     </Layout>
   </MuiThemeProvider>
 );

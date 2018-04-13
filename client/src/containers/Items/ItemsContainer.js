@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Items from "./Items";
+//importing itemcard component
+import ItemCard from "../../components/ItemCard";
 
 class ItemsContainer extends Component {
   constructor() {
@@ -14,16 +16,16 @@ class ItemsContainer extends Component {
   componentDidMount() {
     const urls = ["http://localhost:3000/items", "http://localhost:3000/users"];
     Promise.all(urls.map(url => fetch(url).then(resp => resp.json()))).then(
-      objects => {
-        console.log(objects);
-        objects[0].map(item => {
-          objects[1].map(profile => {
+      array => {
+        console.log(array);
+        array[0].map(item => {
+          array[1].map(profile => {
             if (profile.id === item.itemowner) {
               item.itemowner = profile;
             }
           });
         });
-        this.setState({ itemsData: objects[0] });
+        this.setState({ itemsData: array[0] });
         console.log(this.state.itemsData);
       }
     );
@@ -32,7 +34,7 @@ class ItemsContainer extends Component {
   render() {
     return (
       <div>
-        <Items />
+        <Items itemsData={this.state.itemsData} />
       </div>
     );
   }

@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import ItemsCardList from "../../components/ItemsCardList";
 
-const Items = () => {
-    return (
-        <h1>Items</h1>
-        
-    )
-    
-}
+const Items = props => {
+  return (
+    <div>
+      <ItemsCardList itemsData={props.itemsData} />
+    </div>
+  );
+};
 
 export default Items;

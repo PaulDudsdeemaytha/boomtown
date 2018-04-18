@@ -4,27 +4,33 @@ import {
   CardActions,
   CardHeader,
   CardText,
-  CardTitle
+  CardTitle,
+  CardMedia
 } from "material-ui/Card";
 import FlatButton from "material-ui/FlatButton";
 import { Link } from "react-router-dom";
+import Gravatar from "react-gravatar";
 
 const styles = {
-  width: "350px"
+  width: "350px",
+  padding: "10px"
 };
 
 const ItemCard = props => {
   const item = props.itemsData;
   return (
-    <div>
-      <Card style={styles}>
+    <div style={styles}>
+      <Card>
         <Link to={`/profile/${item.itemowner.id}`}>
           <CardHeader
             title={item.itemowner.fullname}
             subtitle={item.created}
-            // avatar="images/jsa-128.jpg"
+            avatar={<Gravatar email={item.itemowner.email} />}
           />
         </Link>
+        <CardMedia>
+          <img src={item.imageurl} />
+        </CardMedia>
         <CardTitle title={item.title} subtitle={item.tags[0]} />
         <CardText>{item.description}</CardText>
         <CardActions>

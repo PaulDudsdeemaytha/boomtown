@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import Gravatar from "react-gravatar";
 
 const styles = {
-  width: "350px",
+  width: "380px",
   padding: "10px"
 };
 

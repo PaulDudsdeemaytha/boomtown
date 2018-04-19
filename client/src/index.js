@@ -14,12 +14,16 @@ import Routes from "./routes";
 import Items from "./containers/Items";
 //importing itemcard component
 import ItemCard from "./components/ItemCard";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const Boomtown = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
-    <Layout>
-      <Routes />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        <Routes />
+      </Layout>
+    </Provider>
   </MuiThemeProvider>
 );
 

@@ -10,12 +10,25 @@ import {
   CardMedia
 } from "material-ui/Card";
 
+//styles for paper
+const styles = {
+  height: 250,
+  width: 800,
+  margin: "auto",
+  marginTop: 40,
+  marginBottom: 40
+};
+
 const Profiles = props => {
-  const item = props.itemsData;
+  const item = this.props;
   return (
-    <Paper zDepth={1}>
-      <Card>{/* <CardText>{item.description}</CardText> */}</Card>
-    </Paper>
+    <div>
+      <Paper style={styles} zDepth={1}>
+        <Card>
+          {/* <CardHeader title={item.itemowner.fullname} subtitle={item.created} /> */}
+        </Card>
+      </Paper>
+    </div>
   );
 };
 

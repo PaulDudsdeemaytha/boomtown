@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import ItemCard from "../ItemCard";
 import Masonry from "react-masonry-component";
 import "./styles.css";

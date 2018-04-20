@@ -10,6 +10,8 @@ import {
 import FlatButton from "material-ui/FlatButton";
 import { Link } from "react-router-dom";
 import Gravatar from "react-gravatar";
+import moment from "moment";
+import RaisedButton from "material-ui/RaisedButton";
 
 const styles = {
   width: "380px",
@@ -21,20 +23,22 @@ const ItemCard = props => {
   return (
     <div style={styles}>
       <Card>
-        <Link to={`/profile/${item.itemowner.id}`}>
-          <CardHeader
-            title={item.itemowner.fullname}
-            subtitle={item.created}
-            avatar={<Gravatar email={item.itemowner.email} />}
-          />
-        </Link>
         <CardMedia>
           <img src={item.imageurl} />
         </CardMedia>
+        <Link to={`/profile/${item.itemowner.id}`}>
+          <CardHeader
+            title={item.itemowner.fullname}
+            subtitle={moment(item.created)
+              .startOf()
+              .fromNow()}
+            avatar={<Gravatar email={item.itemowner.email} />}
+          />
+        </Link>
         <CardTitle title={item.title} subtitle={item.tags[0]} />
         <CardText>{item.description}</CardText>
         <CardActions>
-          <FlatButton label="Borrow" />
+          <RaisedButton label="Borrow " secondary={true} />
         </CardActions>
       </Card>
     </div>

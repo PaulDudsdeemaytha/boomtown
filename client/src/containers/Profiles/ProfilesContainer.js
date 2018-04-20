@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Profiles from "./Profiles";
 import PropTypes from "prop-types";
-
+import ItemsCardList from "../../components/ItemsCardList";
 // import ItemCard from "../../components/ItemsCardList";
 const userUrl = "http://localhost:3000/users";
 const itemsUrl = "http://localhost:3000/items";
@@ -27,20 +27,24 @@ class ProfilesContainer extends Component {
             }
           });
         });
-        console.log(array[0]);
+        // console.log(array[0]);
         let newArray = array[0].filter(
           item => this.props.match.params.itemownerId === item.itemowner.id
         );
         this.setState({ itemsData: newArray });
         console.log(this.state.itemsData);
-        console.log(this.props.match.params.itemownerId);
       })
       .then(() => this.setState({ isLoading: false }))
       .catch(error => console.log(error));
   }
 
   render() {
-    return <Profiles />;
+    return (
+      <div>
+        <Profiles itemsData={this.state.itemsData} />
+        <ItemsCardList itemsData={this.state.itemsData} />
+      </div>
+    );
   }
 }
 

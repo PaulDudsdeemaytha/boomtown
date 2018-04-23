@@ -1,19 +1,30 @@
-# Boomtown Starter
+# BoomTown
+
+A web application where users are able to find items to borrow from others as well as lend their own, using React and Redux.
+
+## Libraries Used
+
+React
+Redux
+Material UI
+Moment JS
 
 ## Installation
 
-Download the repo, then run:
+First make sure to run
 
 ```bash
 cd client && npm install
 ```
 
-## Start-up
+Run Server
 
-From inside the `client` directory, run:
+```bash
+json-server --watch db.json
+```
+
+From inside the `client` directory, run dev
 
 ```bash
 npm run dev
 ```
-
-Happy coding :)

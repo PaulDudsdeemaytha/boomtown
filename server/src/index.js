@@ -4,7 +4,9 @@ import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
 import schema from "./schema";
 const app = express();
 const PORT = 3005;
+import cors from "cors";
 
+app.use("*", cors());
 // const schema = undefined;
 // Where we will send all of our GraphQL requests
 app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));

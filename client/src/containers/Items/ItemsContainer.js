@@ -1,47 +1,43 @@
-import React, { Component } from "react";
-import Items from "./Items";
-//importing itemcard component
-import ItemCard from "../../components/ItemCard";
-import { connect } from "react-redux";
-import { fetchItemsAndUsers } from "../../redux/modules/items";
+import React, { Component } from 'react';
+import Items from './Items';
+// importing itemcard component
+import ItemCard from '../../components/ItemCard';
+import { connect } from 'react-redux';
+import { fetchItemsAndUsers } from '../../redux/modules/items';
 
 class ItemsContainer extends Component {
-  componentDidMount() {
-    this.props.dispatch(fetchItemsAndUsers());
-    console.log(this.props.itemsData.isLoading);
-  }
-  filterItems = itemsData => {
-    if (itemsData.itemFilters.length > 0) {
-      let filteredItems = itemsData.items.filter(item => {
-        return item.tags.filter(tag =>
-          itemsData.itemFilters.find(filter => filter === tag)
-        ).length;
-      });
-      return filteredItems;
+    componentDidMount() {
+        this.props.dispatch(fetchItemsAndUsers());
+        console.log(this.props.itemsData.isLoading);
     }
-    return itemsData.items;
-  };
+    filterItems = itemsData => {
+        if (itemsData.itemFilters.length > 0) {
+            const filteredItems = itemsData.items.filter(item => item.tags.filter(tag =>
+                itemsData.itemFilters.find(filter => filter === tag)
+            ).length);
+            return filteredItems;
+        }
+        return itemsData.items;
+    };
 
-  render() {
-    return (
-      <div>
-        {/* todo, create loader file for below */}
-        {this.props.itemsData.isLoading ? (
-          <p>Loading</p>
-        ) : (
-          // <Loader />
-          <Items itemsData={this.filterItems(this.props.itemsData)} />
-        )}
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                {/* todo, create loader file for below */}
+                {this.props.itemsData.isLoading ? (
+                    <p>Loading</p>
+                ) : (
+                    // <Loader />
+                    <Items itemsData={this.filterItems(this.props.itemsData)} />
+                )}
+            </div>
+        );
+    }
 }
 
-export default connect(state => {
-  return {
+export default connect(state => ({
     itemsData: state.itemsData
-  };
-})(ItemsContainer);
+}))(ItemsContainer);
 
 // constructor() {
 //   super();
@@ -50,8 +46,8 @@ export default connect(state => {
 //     itemsData: []
 //   };
 // }
-//todo might want to rename objects and profile to something smarter
-//todo move setState with .then to set after its do
+// todo might want to rename objects and profile to something smarter
+// todo move setState with .then to set after its do
 // componentDidMount() {
 //   const urls = ["http://localhost:3000/items", "http://localhost:3000/users"];
 //   Promise.all(urls.map(url => fetch(url).then(resp => resp.json()))).then(

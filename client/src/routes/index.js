@@ -5,6 +5,7 @@ import { Route, Switch, Link, Redirect } from "react-router-dom";
 import Items from "../containers/Items";
 import Login from "../containers/Login";
 import Profiles from "../containers/Profiles";
+import NotFound from "../containers/NotFound";
 
 const Routes = () => {
   return (
@@ -12,7 +13,7 @@ const Routes = () => {
       <Route exact path="/" component={Items} />
       <Route exact path="/profile/:itemownerId" component={Profiles} />
       <Route path="/Login" component={Login} />
-      {/* <Route path="/*" component={Page404}/> */}
+      <Route path="/*" component={NotFound} />
     </Switch>
   );
 };

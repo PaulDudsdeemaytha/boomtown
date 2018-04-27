@@ -2,9 +2,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
 import schema from "./schema";
-const app = express();
-const PORT = 3005;
 import cors from "cors";
+
+const app = express();
+const port = 3005;
 
 app.use("*", cors());
 // const schema = undefined;
@@ -19,8 +20,10 @@ app.use(
   })
 );
 //Error testing
-app.listen(PORT, () =>
-  console.log(
-    `Express GraphQL Server running. Access server running on http://locahost:${PORT}/graphql`
-  )
+app.listen(
+  port,
+  err =>
+    err
+      ? console.log(`ERROR: ${err}`)
+      : console.log(`Express running on PORT: http://localhost:${port}`)
 );

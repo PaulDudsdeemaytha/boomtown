@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import ItemCard from '../../components/ItemCard';
 import { connect } from 'react-redux';
 import { fetchItemsAndUsers } from '../../redux/modules/items';
+import LoadingWheel from '../../components/LoadingWheel';
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -28,10 +29,7 @@ const itemsQuery = gql`
             imageurl
             description
             available
-            tags {
-                id
-                title
-            }
+            tags
         }
     }
 `;
@@ -41,10 +39,10 @@ class ItemsContainer extends Component {
         return (
             <Query query={itemsQuery}>
                 {({ loading, error, data }) => {
-                    console.log(data);
-                    // if (loading) return <Loader />;
+                    console.log(data.items);
+                    if (loading) return <LoadingWheel />;
                     if (error) return <p>Error Getting Items!</p>;
-                    return <Items itemData={data.items} />;
+                    return <Items itemsData={data.items} />;
                 }}
             </Query>
         );

@@ -17,9 +17,9 @@ type Item{
 }
 
 type User{
-    id: ID!,
-    email: String!,
-    fullname: String!,
+    id: ID,
+    email: String,
+    fullname: String,
     bio: String,
     owneditems:[Item],
     borroweditems: [Item]

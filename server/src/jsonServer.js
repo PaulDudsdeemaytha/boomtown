@@ -12,13 +12,13 @@ export const getBorrowedItems = id => {
     .catch(err => console.log(err));
 };
 export const getItem = id => {
-  return fetch(`${jsonApi}/items/${id}`)
+  return fetch(`http://localhost:3001/items/?itemowners${id}`)
     .then(response => response.json())
     .catch(err => console.log(err));
 };
 
 export const getUser = id => {
-  return fetch(`${jsonApi}/users/${id}`)
+  return fetch(`http://localhost:3001/items/?itemowners${id}`)
     .then(response => response.json())
     .catch(err => console.log(err));
 };

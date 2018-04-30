@@ -26,29 +26,35 @@ const resolveFunctions = {
       return fetch(`http://localhost:3001/users/${id}`).then(res => res.json());
     }
   },
+
   Item: {
-    async borrower({ borrower }) {
-      const user = await fetch(`http://localhost:3001/users/${borrower}`);
-      const json = await user.json();
-      if (!json.id) return null;
-      return json;
+    async borrower({ borrower }, args, context) {
+      // const user = await fetch(`http://localhost:3001/users/${borrower}`);
+      // const json = await user.json();
+      // if (!json.id) return null;
+      return borrower
+        ? await context.loaders.ItemBorrower.load(borrower)
+        : null;
     },
-    itemowner({ itemowner }) {
-      return fetch(`http://localhost:3001/users/${itemowner}`).then(res =>
-        res.json()
-      );
+    itemowner({ itemowner }, args, context) {
+      // return fetch(`http://localhost:3001/users/${itemowner}`).then(res =>
+      // res.json()
+      return context.loaders.ItemownerUser.load(itemowner);
     }
   },
+
   User: {
-    borroweditems({ id }) {
-      return fetch(`http://localhost:3001/items/?borrower=${id}`).then(res =>
-        res.json()
-      );
+    borroweditems({ id }, args, context) {
+      // return fetch(`http://localhost:3001/items/?borrower=${id}`).then(res =>
+      //   res.json()
+      // );
+      return context.loaders.ItemBorrower.load(itemowner);
     },
-    owneditems({ id }) {
-      return fetch(`http://localhost:3001/items/?itemowner=${id}`).then(res =>
-        res.json()
-      );
+    owneditems({ id }, args, context) {
+      // return fetch(`http://localhost:3001/items/?itemowner=${id}`).then(res =>
+      //   res.json()
+      // );
+      return context.loaders.UserOwnedItems.load(itemowner);
     }
   },
   //mutation

@@ -33,7 +33,7 @@ const typeDefs = `
       title: String!
       description: String!
       imageurl: String!
-      tags: [String]!
+      tags: [String]
       itemowner: String!
       created: String!
       available: Boolean!

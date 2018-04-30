@@ -16,20 +16,20 @@ const itemsQuery = gql`
         items {
             id
             title
-            itemowner {
-                id
-                email
-                fullname
-            }
-            borrower {
-                id
-                fullname
-            }
             created
             imageurl
             description
             available
             tags
+            itemowner {
+                id
+                email
+                bio
+                fullname
+            }
+            borrower {
+                fullname
+            }
         }
     }
 `;

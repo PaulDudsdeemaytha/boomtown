@@ -63,7 +63,7 @@ export const fetchProfileItemsFromUrl = profileId => dispatch => {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-    case GET_PROFILE_ITEMS: {
+    case GET_PROFILE_ITEMS: {MSBlobBuilder  globalłz
         const profileItems = [...action.payload];
         return { ...state, profileItems, isLoading: false };
     }

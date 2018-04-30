@@ -3,7 +3,6 @@ import bodyParser from "body-parser";
 import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
 import schema from "./schema";
 import cors from "cors";
-
 import { Loaders } from "./loaders";
 
 const app = express();
@@ -12,18 +11,26 @@ const port = 3005;
 app.use("*", cors());
 // const schema = undefined;
 // Where we will send all of our GraphQL requests
-app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
-
-// A route for accessing the GraphiQL tool
 app.use(
-  "/graphiql",
-  graphiqlExpress({
-    endpointURL: "/graphql",
-    //adding in
+  "/graphql",
+  bodyParser.json(),
+  graphqlExpress({
+    schema,
     context: {
       fun: true,
       loaders: Loaders()
     }
+  })
+);
+// A route for accessing the GraphiQL tool
+app.use(
+  "/graphiql",
+  graphiqlExpress({
+    endpointURL: "/graphql"
+    // context: {
+    //   fun: true,
+    //   loaders: Loaders()
+    // }
   })
 );
 //Error testing

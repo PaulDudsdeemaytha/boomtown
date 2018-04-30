@@ -39,7 +39,6 @@ class ItemsContainer extends Component {
         return (
             <Query query={itemsQuery}>
                 {({ loading, error, data }) => {
-                    console.log(data.items);
                     if (loading) return <LoadingWheel />;
                     if (error) return <p>Error Getting Items!</p>;
                     return <Items itemsData={data.items} />;

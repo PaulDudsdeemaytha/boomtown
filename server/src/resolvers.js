@@ -1,4 +1,11 @@
 import fetch from "node-fetch";
+import {
+  getUserOwnedItems,
+  getBorrowedItems,
+  getItem,
+  getUser
+} from "./jsonServer";
+
 const resolveFunctions = {
   // Resolvers go here...
   Query: {
@@ -42,6 +49,29 @@ const resolveFunctions = {
       return fetch(`http://localhost:3001/items/?itemowner=${id}`).then(res =>
         res.json()
       );
+    }
+  },
+  //mutation
+  Mutation: {
+    addItem(root, item) {
+      const newItem = {
+        title: item.title,
+        description: item.description,
+        imageurl: item.imageurl,
+        tags: item.tags,
+        itemowner: item.itemowner,
+        created: item.created,
+        available: item.available,
+        borrower: item.borrower
+      };
+      return fetch(`http://localhost:3001/items`, {
+        body: JSON.stringify(newItem),
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        }
+      }).then(resp => resp.json());
+      return newItem;
     }
   }
 };

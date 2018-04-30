@@ -4,6 +4,8 @@ import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
 import schema from "./schema";
 import cors from "cors";
 
+import { Loaders } from "./loaders";
+
 const app = express();
 const port = 3005;
 
@@ -16,7 +18,12 @@ app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
 app.use(
   "/graphiql",
   graphiqlExpress({
-    endpointURL: "/graphql"
+    endpointURL: "/graphql",
+    //adding in
+    context: {
+      fun: true,
+      loaders: Loaders()
+    }
   })
 );
 //Error testing

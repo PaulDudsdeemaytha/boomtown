@@ -1,5 +1,5 @@
 import { makeExecutableSchema } from "graphql-tools";
-import resolvers from "./resolvers"; // Next step!
+import resolvers from "./resolvers";
 
 const typeDefs = `
   type Item {
@@ -26,6 +26,19 @@ const typeDefs = `
     users: [User]
     item(id: ID!): Item
     user(id: ID!): User
+  }
+
+  type Mutation {
+    addItem (
+      title: String!
+      description: String!
+      imageurl: String!
+      tags: [String]!
+      itemowner: String!
+      created: String!
+      available: Boolean!
+      borrower: String
+    ): Item
   }
 `;
 

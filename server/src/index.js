@@ -1,38 +1,16 @@
 import express from "express";
-import bodyParser from "body-parser";
-import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
-import schema from "./schema";
 import cors from "cors";
-import { Loaders } from "./loaders";
+import initConfig from "./config";
+import initAPI from "./api";
 
 const app = express();
 const port = 3005;
 
+initConfig(app);
+
 app.use("*", cors());
 // const schema = undefined;
-// Where we will send all of our GraphQL requests
-app.use(
-  "/graphql",
-  bodyParser.json(),
-  graphqlExpress({
-    schema,
-    context: {
-      fun: true,
-      loaders: Loaders()
-    }
-  })
-);
-// A route for accessing the GraphiQL tool
-app.use(
-  "/graphiql",
-  graphiqlExpress({
-    endpointURL: "/graphql"
-    // context: {
-    //   fun: true,
-    //   loaders: Loaders()
-    // }
-  })
-);
+
 //Error testing
 app.listen(
   port,

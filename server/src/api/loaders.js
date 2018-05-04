@@ -1,12 +1,12 @@
 import DataLoader from "dataloader";
-import {
-  getUserOwnedItems,
-  getBorrowedItems,
-  getItemownerUser,
-  getBorrower
-} from "./jsonServer";
+// import {
+//   getUserOwnedItems,
+//   getBorrowedItems,
+//   getItemownerUser,
+//   getBorrower
+// } from "./jsonServer";
 
-export function Loaders() {
+export default function Loaders({ jsonResources }) {
   return {
     UserOwnedItems: new DataLoader(ids =>
       Promise.all(ids.map(id => getUserOwnedItems(id)))

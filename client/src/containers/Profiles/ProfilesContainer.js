@@ -7,8 +7,8 @@ import ItemsCardList from '../../components/ItemsCardList';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const userUrl = 'http://localhost:3003/users';
-const itemsUrl = 'http://localhost:3003/items';
+const userUrl = 'http://localhost:3001/users';
+const itemsUrl = 'http://localhost:3001/items';
 
 const profileQuery = gql`
     query user($userId: ID!) {

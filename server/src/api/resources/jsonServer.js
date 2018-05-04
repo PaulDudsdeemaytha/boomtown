@@ -23,6 +23,11 @@ export default function(app) {
       return fetch(`http://localhost:3001/users/${id}`)
         .then(response => response.json())
         .catch(err => console.log(err));
+    },
+    getItems() {
+      return fetch(`http://localhost:3001/items`)
+        .then(response => response.json())
+        .catch(err => console.log(err));
     }
   };
 }

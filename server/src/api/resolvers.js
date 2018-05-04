@@ -1,19 +1,17 @@
 import fetch from "node-fetch";
-// import {
-//   getUserOwnedItems,
-//   getBorrowedItems,
-//   getItem,
-//   getUser
-// } from "./jsonServer";
+import {
+  getUserOwnedItems,
+  getBorrowedItems,
+  getItems,
+  getUser
+} from "./resources/jsonServer";
 
-//
-
-export default function({ jsonResources }) {
+export default function({ jsonResources, pgResources }) {
   return {
     // Resolvers go here...
     Query: {
       items(root) {
-        return jsonResources.items();
+        return jsonResources.getItems();
         //  fetch(`http://localhost:3001/items`).then(response =>
         //   response.json()
       },

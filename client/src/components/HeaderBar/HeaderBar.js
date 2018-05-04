@@ -11,8 +11,8 @@ import { connect } from 'react-redux';
 class HeaderBar extends Component {
     componentDidMount() {
         const urls = [
-            'http://localhost:3003/items',
-            'http://localhost:3003/users'
+            'http://localhost:3001/items',
+            'http://localhost:3001/users'
         ];
         this.props.dispatch(get_fetch_items(urls));
     }

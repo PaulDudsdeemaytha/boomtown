@@ -36,7 +36,7 @@ export const get_tags = () => ({
 });
 
 export const fetchItemsAndUsers = urls => dispatch => {
-    const urls = ['http://localhost:3003/items', 'http://localhost:3003/users'];
+    const urls = ['http://localhost:3001/items', 'http://localhost:3001/users'];
     // removed the logic
     const combineItemsAndUsers = array => {
         array[0].map(item => {

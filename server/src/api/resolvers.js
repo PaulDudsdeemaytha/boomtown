@@ -3,7 +3,7 @@ import {
   getUserOwnedItems,
   getBorrowedItems,
   getItems,
-  getUser
+  getUsers
 } from "./resources/jsonServer";
 
 export default function({ jsonResources, pgResources }) {
@@ -12,55 +12,34 @@ export default function({ jsonResources, pgResources }) {
     Query: {
       items(root) {
         return jsonResources.getItems();
-        //  fetch(`http://localhost:3001/items`).then(response =>
-        //   response.json()
       },
       users(root) {
-        return jsonResources.users();
-        // fetch(`http://localhost:3001/users`).then(response =>
-        //   response.json()
+        return jsonResources.getUsers();
       },
       item(root, { id }) {
         return jsonResources.item(id);
-        // fetch(`http://localhost:3001/items/${id}`).then(res =>
-        //   res.json()
-        // );
       },
       user(root, { id }) {
         return jsonResources.user(id);
-        // fetch(`http://localhost:3001/users/${id}`).then(res =>
-        //   res.json()
-        // );
       }
     },
 
     Item: {
       async borrower({ borrower }, args, context) {
-        // const user = await fetch(`http://localhost:3001/users/${borrower}`);
-        // const json = await user.json();
-        // if (!json.id) return null;
         return borrower
           ? await context.loaders.ItemBorrower.load(borrower)
           : null;
       },
       itemowner({ itemowner }, args, context) {
-        // return fetch(`http://localhost:3001/users/${itemowner}`).then(res =>
-        // res.json()
         return context.loaders.ItemownerUser.load(itemowner);
       }
     },
 
     User: {
       borroweditems({ id }, args, context) {
-        // return fetch(`http://localhost:3001/items/?borrower=${id}`).then(res =>
-        //   res.json()
-        // );
         return context.loaders.ItemBorrower.load(itemowner);
       },
       owneditems({ id }, args, context) {
-        // return fetch(`http://localhost:3001/items/?itemowner=${id}`).then(res =>
-        //   res.json()
-        // );
         return context.loaders.UserOwnedItems.load(itemowner);
       }
     },
@@ -89,4 +68,3 @@ export default function({ jsonResources, pgResources }) {
     }
   };
 }
-// export default resolveFunctions;

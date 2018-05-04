@@ -24,6 +24,11 @@ export default function(app) {
         .then(response => response.json())
         .catch(err => console.log(err));
     },
+    getUsers() {
+      return fetch(`http://localhost:3001/users`)
+        .then(response => response.json())
+        .catch(err => console.log(err));
+    },
     getItems() {
       return fetch(`http://localhost:3001/items`)
         .then(response => response.json())

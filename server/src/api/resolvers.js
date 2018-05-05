@@ -6,21 +6,21 @@ import {
   getUsers
 } from "./resources/jsonServer";
 
-export default function({ jsonResources, pgResources }) {
+export default function({ firebaseResources, pgResources }) {
   return {
     // Resolvers go here...
     Query: {
       items(root) {
-        return jsonResources.getItems();
+        return firebaseResources.getItems();
       },
       users(root) {
-        return jsonResources.getUsers();
+        return firebaseResources.getUsers();
       },
       item(root, { id }) {
-        return jsonResources.item(id);
+        return firebaseResources.item(id);
       },
       user(root, { id }) {
-        return jsonResources.user(id);
+        return firebaseResources.user(id);
       }
     },
 

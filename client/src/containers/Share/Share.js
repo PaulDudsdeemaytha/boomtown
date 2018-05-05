@@ -7,9 +7,45 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+
+import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 
-const tags = ['Electronics', 'Sports', 'Household Items', 'Test', 'Test2'];
+const ADD_ITEM = gql`
+    mutation addItem(
+        $title: String!
+        $description: String!
+        $itemowner: String!
+        $imageurl: String!
+        $available: Boolean!
+        $tags: [String]!
+    ) {
+        addItem(
+            title: $title
+            description: $description
+            itemowner: $itemowner
+            imageurl: $imageurl
+            available: $available
+            tags: $tags
+        ) {
+            title
+            description
+            imageurl
+            available
+            tags
+        }
+    }
+`;
+
+const tags = [
+    { id: 1, title: 'Electronics' },
+    { id: 2, title: 'Household Items' },
+    { id: 3, title: 'Musical Instruments' },
+    { id: 4, title: 'Phyiscal Media' },
+    { id: 5, title: 'Recreational Equipment' },
+    { id: 6, title: 'Sporting Goods' },
+    { id: 7, title: 'Tools' }
+];
 
 class Share extends Component {
     state = {
@@ -17,9 +53,9 @@ class Share extends Component {
         stepIndex: 0,
         values: []
     };
-    onSubmit = values => {
-        console.log(values);
-    };
+    onSubmit(values, addItem) {
+        console.log('Added!');
+    }
 
     validate(...args) {
         console.log('Validating:', args);
@@ -87,94 +123,128 @@ class Share extends Component {
         const { values } = this.state;
 
         return (
-            // <Form
-            //     onSubmit={this.onSubmit.bind(this)}
-            //     validate={this.validate.bind(this)}
-            //     render={({handleSubmit, values}) =>{
-            //         <Mutation mutation={ADD_ITEAM}>
-            //         {(addItem,{data}=>{
-            //             <form
-            //                 onSubmit=(e => {
-            //                     e.preventDefault();
-            //                     handleSubmit();
+            <Form
+                onSubmit={this.onSubmit.bind(this)}
+                validate={this.validate.bind(this)}
+                render={({ handleSubmit, values }) => (
+                    <Mutation mutation={ADD_ITEM}>
+                        {(addItem, { data }) => (
+                            <form
+                                onSubmit={e => {
+                                    e.preventDefault();
+                                    handleSubmit();
 
-            //                     const newItem= {
-            //                         title.values.title,
-            //                         description: values.descrip
-            //                     }
-            //                 })
-            //         })}
-            //     }}
-
-            <div style={{ maxWidth: 580, maxHeight: 400, margin: 'auto' }}>
-                <Stepper activeStep={stepIndex} orientation="vertical">
-                    {/* Adding an Image */}
-                    <Step>
-                        <StepLabel>Add an Image</StepLabel>
-                        <StepContent>
-                            <p>
-                                We live in a visual culture. Upload an image of
-                                the item you're sharing.
-                            </p>
-                            <input
-                                type="file"
-                                required
-                                accept=".png, .jpg, jpeg, .gif "
-                            />
-                            {this.renderStepActions(0)}
-                        </StepContent>
-                    </Step>
-                    {/* Adding a title and Description */}
-                    <Step>
-                        <StepLabel>Add a Title & Description</StepLabel>
-                        <StepContent>
-                            <p>
-                                Folks need to know what you're sharing. Give
-                                them a clue by adding a title & description.
-                            </p>
-                            <TextField type="text" floatingLabelText="Title" />
-                            <TextField
-                                type="text"
-                                floatingLabelText="Description"
-                                multiLine
-                                rows={3}
-                            />
-
-                            {this.renderStepActions(1)}
-                        </StepContent>
-                    </Step>
-                    {/* Adding in Tags */}
-                    <Step>
-                        <StepLabel>Categorize your Item</StepLabel>
-                        <StepContent>
-                            <p>
-                                To share an item, you'll need to add it to our
-                                list of categories. You can select multiple
-                                categories.
-                            </p>
-                            <SelectField
-                                multiple
-                                hintText="Select a category"
-                                value={values}
-                                onChange={this.handleChange}
+                                    const newItem = {
+                                        title: values.title,
+                                        description: values.description,
+                                        itemowner:
+                                            'eEvh1WUF5nb5eeUksUQb3Ph0kOU2',
+                                        imageurl: values.image,
+                                        available: true,
+                                        tags: this.state.tags.map(tag =>
+                                            tag.title.toString()
+                                        )
+                                    };
+                                    console.log(newItem);
+                                    addItem({ variables: newItem });
+                                }}
                             >
-                                {this.tagItems(values)}
-                            </SelectField>
-                        </StepContent>
-                    </Step>
-                    {/* Final Confirmation Step */}
-                    <Step>
-                        <StepLabel>Confirm Things!</StepLabel>
-                        <StepContent>
-                            <p>
-                                Great! If you're happy with everything, tap the
-                                button.
-                            </p>
-                            {this.renderStepActions(2)}
-                        </StepContent>
-                    </Step>
-                </Stepper>
-            </div>
+                                <div
+                                    style={{
+                                        maxWidth: 580,
+                                        maxHeight: 400,
+                                        margin: 'auto'
+                                    }}
+                                >
+                                    <Stepper
+                                        activeStep={stepIndex}
+                                        orientation="vertical"
+                                    >
+                                        {/* Adding an Image */}
+                                        <Step>
+                                            <StepLabel>Add an Image</StepLabel>
+                                            <StepContent>
+                                                <p>
+                                                    We live in a visual culture.
+                                                    Upload an image of the item
+                                                    you're sharing.
+                                                </p>
+                                                <input
+                                                    type="file"
+                                                    required
+                                                    accept=".png, .jpg, jpeg, .gif "
+                                                />
+                                                {this.renderStepActions(0)}
+                                            </StepContent>
+                                        </Step>
+                                        {/* Adding a title and Description */}
+                                        <Step>
+                                            <StepLabel>
+                                                Add a Title & Description
+                                            </StepLabel>
+                                            <StepContent>
+                                                <p>
+                                                    Folks need to know what
+                                                    you're sharing. Give them a
+                                                    clue by adding a title &
+                                                    description.
+                                                </p>
+                                                <TextField
+                                                    type="text"
+                                                    floatingLabelText="Title"
+                                                />
+                                                <TextField
+                                                    type="text"
+                                                    floatingLabelText="Description"
+                                                    multiLine
+                                                    rows={3}
+                                                />
+
+                                                {this.renderStepActions(1)}
+                                            </StepContent>
+                                        </Step>
+                                        {/* Adding in Tags */}
+                                        <Step>
+                                            <StepLabel>
+                                                Categorize your Item
+                                            </StepLabel>
+                                            <StepContent>
+                                                <p>
+                                                    To share an item, you'll
+                                                    need to add it to our list
+                                                    of categories. You can
+                                                    select multiple categories.
+                                                </p>
+                                                <SelectField
+                                                    multiple
+                                                    hintText="Select a category"
+                                                    value={values}
+                                                    onChange={this.handleChange}
+                                                >
+                                                    {this.tagItems(values)}
+                                                </SelectField>
+                                            </StepContent>
+                                        </Step>
+                                        {/* Final Confirmation Step */}
+                                        <Step>
+                                            <StepLabel>
+                                                Confirm Things!
+                                            </StepLabel>
+                                            <StepContent>
+                                                <p>
+                                                    Great! If you're happy with
+                                                    everything, tap the button.
+                                                </p>
+                                                {this.renderStepActions(2)}
+                                            </StepContent>
+                                        </Step>
+                                    </Stepper>
+                                </div>
+                            </form>
+                        )}
+                    </Mutation>
+                )}
+            />
         );
     }
 }

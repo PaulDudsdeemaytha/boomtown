@@ -3,8 +3,8 @@ import * as firebase from "firebase";
 export default function(app) {
   firebase.initializeApp({
     apiKey: "AIzaSyAmRK7Dryl0fMWBEA3-q0odFK8A6Ct7Skw",
-    authDomain: "boomtown-c8fa1.firebaseapp.com",
-    databaseURL: "https://boomtown-c8fa1.firebaseio.com"
+    authDomain: "boomtown-f9274.firebaseapp.com",
+    databaseURL: "https://boomtown-f9274.firebaseio.com"
   });
   console.log(app.get("FIREBASE_DB_URL"));
   const FirebaseDB = firebase.database();
